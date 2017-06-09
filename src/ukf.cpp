@@ -17,6 +17,9 @@ using std::vector;
  */
 UKF::UKF() {
 
+  // Disable prediction/update for first mesaurement
+  is_initialized_ = false;
+
   // protected:
   ///* State dimension
   n_x_ = 5;
@@ -63,33 +66,33 @@ UKF::UKF() {
 
 /* Current RMSE:
 RMSE
-0.0830734
-0.095111
-0.365387
-0.296387
+ 0.0689643
+ 0.0840537
+ 0.398886
+ 0.197331
 Done!
 */
 
   // Process noise standard deviation longitudinal acceleration in m/s^2
-  std_a_ = 0.1;
+  std_a_ = 1;
 
   // Process noise standard deviation yaw acceleration in rad/s^2
-  std_yawdd_ = 0.1;
+  std_yawdd_ = 0.6;
 
   // Laser measurement noise standard deviation position1 in m
-  std_laspx_ = 0.015;
+  std_laspx_ = 0.15;
 
   // Laser measurement noise standard deviation position2 in m
-  std_laspy_ = 0.015;
+  std_laspy_ = 0.15;
 
   // Radar measurement noise standard deviation radius in m
-  std_radr_ =  0.6;
+  std_radr_ = 0.3;
 
   // Radar measurement noise standard deviation angle in rad
-  std_radphi_ = 0.01;
+  std_radphi_ = 0.03;
 
   // Radar measurement noise standard deviation radius change in m/s
-  std_radrd_ = 0.1;
+  std_radrd_ = 0.3;
 
   // Initialize predicted sigma points matrix
   Xsig_pred_ = MatrixXd(n_x_, 2*n_aug_+1);
